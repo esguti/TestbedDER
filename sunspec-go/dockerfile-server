@@ -1,0 +1,16 @@
+FROM golang:1.17.6
+
+MAINTAINER Esteban Gutierrez (https://github.com/esguti)
+
+ENV TZ=Europe/Rome
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
+COPY ./ /opt/sunspec-go/
+
+WORKDIR /opt/sunspec-go
+
+RUN go build examples/basic/main_server.go
+
+RUN apt-get update && apt-get install -y net-tools
+
+CMD ["go", "run", "examples/basic/main_server.go"]

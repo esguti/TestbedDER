@@ -1,0 +1,63 @@
+version: "3.7"
+
+services:
+  sunspec-battery:
+    container_name: sunspec-battery
+    build:
+      context: ./sunspec-go
+      dockerfile: dockerfile-server
+    ports:
+      - "502:502"
+    mac_address: 8a:ca:58:b9:e9:10
+    networks:
+      talent:
+        ipv4_address: 172.16.238.10
+
+  sunspec-hmi:
+    container_name: sunspec-hmi
+    build:
+      context: ./sunspec-go
+      dockerfile: dockerfile-client
+    ports:
+      - "8080:8080"
+    depends_on:
+      - sunspec-battery
+    mac_address: 8a:ca:58:b9:e9:11
+    networks:
+      talent:
+        ipv4_address: 172.16.238.11
+
+  sunspec-kali:
+    container_name: sunspec-kali
+    privileged: true
+    build:
+      context: ./kali
+      dockerfile: dockerfile-kali
+    mac_address: 8a:ca:58:b9:e9:12
+    networks:
+      talent:
+        ipv4_address: 172.16.238.12
+    sysctls:
+      # Necessary for transparent mode for mitmproxy
+      - net.ipv4.ip_forward=1
+      - net.ipv6.conf.all.forwarding=1
+      - net.ipv4.conf.all.send_redirects=0
+
+  sunspec-snort:
+    container_name: sunspec-snort
+    build:
+      context: ./snort
+      dockerfile: dockerfile-snort
+    cap_add:
+      - NET_RAW
+      - NET_ADMIN
+    # Necessary for sniffing the traffic between the machines
+    network_mode: host
+
+networks:
+    talent:
+      internal: false
+      ipam:
+        driver: default
+        config:
+          - subnet: 172.16.238.0/24

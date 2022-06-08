@@ -1,0 +1,22 @@
+FROM kalilinux/kali-last-release
+
+MAINTAINER Esteban Gutierrez (https://github.com/esguti)
+
+ENV TZ=Europe/Rome
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
+ENV DEBIAN_FRONTEND noninteractive
+
+RUN apt-get update && apt-get upgrade -y && apt-get install -y \
+    snort \
+    tcpdump \
+    vim
+COPY ./local.rules /etc/snort/rules/local.rules
+
+COPY ./bash_history /root/.bash_history
+
+# Set working directory to /root
+WORKDIR /root
+
+# Open shell
+CMD exec /bin/bash -c "trap : TERM INT; sleep infinity & wait"

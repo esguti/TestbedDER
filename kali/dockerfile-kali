@@ -1,0 +1,46 @@
+# Dockerfile kali-light
+
+# Official base image
+FROM kalilinux/kali-last-release
+
+MAINTAINER Esteban Gutierrez (https://github.com/esguti)
+
+ENV TZ=Europe/Rome
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
+# tools
+RUN apt-get update && apt-get install -y \
+    curl \
+    net-tools \
+    nmap \
+    dnsutils \
+    dsniff \
+    tcpdump \
+    ettercap-text-only \
+    bsdextrautils \
+    vim \
+    procps \
+    wget
+
+RUN apt-get update && apt-get install -y \
+    iptables \
+    python3-minimal \
+    python3-pip \
+    build-essential python3-dev libnetfilter-queue-dev
+RUN pip3 install NetfilterQueue scapy
+COPY ./modbus-proxy.py /root/
+RUN chmod u+x /root/modbus-proxy.py
+
+# attack files
+COPY ./modbus-attack.ef /root/
+COPY ./start_injection.sh /root/
+COPY ./stop_injection.sh /root/
+RUN chmod u+x /root/start_injection.sh /root/stop_injection.sh
+
+COPY ./bash_history /root/.bash_history
+
+# Set working directory to /root
+WORKDIR /root
+
+# Open shell
+CMD exec /bin/bash -c "trap : TERM INT; sleep infinity & wait"

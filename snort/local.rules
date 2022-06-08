@@ -1,0 +1,14 @@
+# $Id: local.rules,v 1.11 2004/07/23 20:15:44 bmc Exp $
+# ----------------
+# LOCAL RULES
+# ----------------
+# This file intentionally does not come with signatures.  Put your local
+# additions here.
+#
+
+# alert icmp any any -> any any (msg:"Pinging...";sid:1000004;)
+
+preprocessor arpspoof: -unicast
+preprocessor arpspoof_detect_host: 172.16.238.10 8a:ca:58:b9:e9:10
+preprocessor arpspoof_detect_host: 172.16.238.11 8a:ca:58:b9:e9:11
+preprocessor arpspoof_detect_host: 172.16.238.12 8a:ca:58:b9:e9:12
