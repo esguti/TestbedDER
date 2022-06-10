@@ -8,9 +8,8 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update && apt-get upgrade -y && apt-get install -y \
-    snort \
-    tcpdump \
-    vim
+    postfix snort \
+    tcpdump
 COPY ./local.rules /etc/snort/rules/local.rules
 
 COPY ./bash_history /root/.bash_history
